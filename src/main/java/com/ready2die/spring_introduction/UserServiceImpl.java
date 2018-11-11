@@ -1,5 +1,8 @@
 package com.ready2die.spring_introduction;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
