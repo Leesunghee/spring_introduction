@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
 //    @Autowired
 //    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
