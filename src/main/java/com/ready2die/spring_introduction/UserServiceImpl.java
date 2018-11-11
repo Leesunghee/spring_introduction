@@ -3,11 +3,13 @@ package com.ready2die.spring_introduction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class UserServiceImpl implements UserService {
 
-    @Autowired(required = false)
-    PasswordEncoder passwordEncoder;
+    @Autowired
+    Optional<PasswordEncoder> passwordEncoder;
 
     @Autowired
     UserRepository userRepository;
@@ -21,5 +23,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user, String rawPassword) {
 
+    }
+
+    public void createUser(User user, String rawPassword) {
+        String encodedPassword = passwordEncoder.map(p -> p.encode(rawPassword))
+                .orElse(rawPassword);
     }
 }
