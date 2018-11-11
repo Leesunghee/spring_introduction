@@ -1,6 +1,8 @@
 package com.ready2die.spring_introduction;
 
+import com.ready2die.annotation.Lightweight;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -9,6 +11,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
+    @Lightweight
     Optional<PasswordEncoder> passwordEncoder;
 
     @Autowired
