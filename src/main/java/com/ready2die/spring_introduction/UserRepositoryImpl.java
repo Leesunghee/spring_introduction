@@ -13,4 +13,8 @@ public class UserRepositoryImpl implements UserRepository {
     public int countByUsername(String username) {
         return 0;
     }
+
+    public void print() {
+        System.out.println("test");
+    }
 }

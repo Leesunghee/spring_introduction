@@ -11,9 +11,9 @@ public class SpringIntroductionApplication {
 
     public static void main(String[] args) {
 
-//        ApplicationContext context = new AnnotationConfigApplicationContext("com.ready2die.config");
-        ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
-        UserService userService = context.getBean(UserService.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext("com.ready2die.config");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("config.xml");
+        UserService userService = context.getBean(UserServiceImpl.class);
 
         UserRepository userRepository = context.getBean(UserRepository.class);
 
