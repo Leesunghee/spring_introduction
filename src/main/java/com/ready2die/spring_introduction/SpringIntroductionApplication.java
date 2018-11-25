@@ -1,10 +1,14 @@
 package com.ready2die.spring_introduction;
 
 import com.ready2die.javaBeans.ApplicationProperties;
+import com.ready2die.javaBeans.Staff;
 import com.ready2die.service.DomainService;
 import com.ready2die.serviceImpl.DomainServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 
 public class SpringIntroductionApplication {
 
@@ -30,6 +34,21 @@ public class SpringIntroductionApplication {
 
         System.out.println("adminEmail :::: " + applicationProperties.getAdminEmail().getValue());
         System.out.println("userEmail :::: " + applicationProperties.getEmail());
+
+
+        ExpressionParser parser = new SpelExpressionParser();
+        Expression expression = parser.parseExpression("1 * 10 + 1");
+        Integer calculateResult = expression.getValue(Integer.class);
+
+        System.out.println("calculateResult = " + calculateResult);
+
+        expression = parser.parseExpression("joinedYear");
+        Staff staff = new Staff();
+        expression.setValue(staff, "2000");
+        Integer joinedYear = staff.getJoinedYear();
+
+        System.out.println("joinedYear = " + joinedYear);
+        
 
         ((AnnotationConfigApplicationContext) context).close();
 

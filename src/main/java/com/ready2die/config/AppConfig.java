@@ -13,6 +13,7 @@ import org.springframework.format.support.DefaultFormattingConversionService;
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {DomainService.class})
 })
 @EnableAspectJAutoProxy(proxyTargetClass = true)
+@PropertySource("classpath:application.properties")
 public class AppConfig {
 
     @Bean
