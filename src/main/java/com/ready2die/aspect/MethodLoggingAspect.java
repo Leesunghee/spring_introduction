@@ -9,14 +9,15 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class MethodLoggingAspect {
-    @Around("execution(* *..*ServiceImpl.*(String)) && target(userServiceImpl) && args(input)")
-    public Object log(ProceedingJoinPoint jp, UserServiceImpl userServiceImpl, String input) throws Throwable {
+    @Around("execution(* *..*ServiceImpl.*(String)) && target(userServiceImpl) && args(input) && this(userServiceProxyImpl)")
+    public Object log(ProceedingJoinPoint jp, UserServiceImpl userServiceImpl, String input, UserServiceImpl userServiceProxyImpl) throws Throwable {
         System.out.println("메소드 시작: " + jp.getSignature());
         try {
             // 프락시가 입혀지기 전의 원본 대상 개체를 가져온다.
             Object targetObject = jp.getTarget();
 
-            userServiceImpl.findOne(input);
+//            userServiceImpl.findOne(input);
+
 
             // 프락시를 가져온다.
             Object thisObject = jp.getThis();

@@ -1,16 +1,15 @@
 package com.ready2die.spring_introduction;
 
-import com.ready2die.annotation.Lightweight;
+import com.ready2die.javaBeans.ApplicationProperties;
+import com.ready2die.javaBeans.EmailValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.Optional;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -31,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ApplicationProperties applicationProperties;
 
     public UserServiceImpl() {
         System.out.println("Constuctor");

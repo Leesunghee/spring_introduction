@@ -1,9 +1,12 @@
 package com.ready2die.config;
 
 import com.ready2die.annotation.Lightweight;
+import com.ready2die.converter.StringToEmailValueConverter;
 import com.ready2die.service.DomainService;
 import com.ready2die.spring_introduction.*;
 import org.springframework.context.annotation.*;
+import org.springframework.core.convert.ConversionService;
+import org.springframework.format.support.DefaultFormattingConversionService;
 
 @Configuration
 @ComponentScan(basePackages = "com.ready2die", includeFilters = {
@@ -30,5 +33,12 @@ public class AppConfig {
     @Profile("development")
     DataSource dataSource() {
         return new DataSourceForDevelopment();
+    }
+
+    @Bean
+    public ConversionService conversionService() {
+        DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
+        conversionService.addConverter(new StringToEmailValueConverter());
+        return conversionService;
     }
 }

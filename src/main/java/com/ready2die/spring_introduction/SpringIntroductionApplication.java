@@ -1,5 +1,6 @@
 package com.ready2die.spring_introduction;
 
+import com.ready2die.javaBeans.ApplicationProperties;
 import com.ready2die.service.DomainService;
 import com.ready2die.serviceImpl.DomainServiceImpl;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +25,11 @@ public class SpringIntroductionApplication {
         UserRepository userRepository = context.getBean(UserRepository.class);
 
         DomainService domainService = context.getBean(DomainServiceImpl.class);
+
+        ApplicationProperties applicationProperties = context.getBean(ApplicationProperties.class);
+
+        System.out.println("adminEmail :::: " + applicationProperties.getAdminEmail().getValue());
+        System.out.println("userEmail :::: " + applicationProperties.getEmail());
 
         ((AnnotationConfigApplicationContext) context).close();
 
