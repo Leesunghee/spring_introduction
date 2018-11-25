@@ -48,7 +48,8 @@ public class SpringIntroductionApplication {
         Integer joinedYear = staff.getJoinedYear();
 
         System.out.println("joinedYear = " + joinedYear);
-        
+
+        ((UserServiceImpl) userService).printWelcomeMessage();
 
         ((AnnotationConfigApplicationContext) context).close();
 

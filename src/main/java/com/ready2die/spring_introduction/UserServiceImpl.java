@@ -6,10 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Locale;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -32,7 +36,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Autowired
-    ApplicationProperties applicationProperties;
+    MessageSource messageSource;
 
     public UserServiceImpl() {
         System.out.println("Constuctor");
@@ -81,4 +85,24 @@ public class UserServiceImpl implements UserService {
         log.debug("local 메서드 종료: UserServiceImpl.findOne 반환값 = {}", user);
         return user;
     }
+
+    public void printWelcomeMessage() {
+
+//        String message = messageSource.getMessage(
+//                "result.succeed",
+//                new String [] {"사용자 등록"},
+//                Locale.KOREAN
+//        );
+
+        MessageSourceResolvable functionName = new DefaultMessageSourceResolvable("functionName.userRegistration");
+
+        String message = messageSource.getMessage(
+                "result.succeed",
+                new MessageSourceResolvable[] {functionName},
+                Locale.KOREAN
+        );
+
+        System.out.println(message);
+    }
+
 }

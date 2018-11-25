@@ -4,7 +4,9 @@ import com.ready2die.annotation.Lightweight;
 import com.ready2die.converter.StringToEmailValueConverter;
 import com.ready2die.service.DomainService;
 import com.ready2die.spring_introduction.*;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.format.support.DefaultFormattingConversionService;
 
@@ -41,5 +43,15 @@ public class AppConfig {
         DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
         conversionService.addConverter(new StringToEmailValueConverter());
         return conversionService;
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        //클래스패스 상에 있는 프로퍼티 파일의 이름을 확장자를 제외하고 지정한다.
+        messageSource.setBasename("messages");
+        //프로퍼티 파일이 ISO-8859-1이 아니라 UTF-8로 인코딩돼 있다.
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 }
