@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -37,6 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     MessageSource messageSource;
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     public UserServiceImpl() {
         System.out.println("Constuctor");
@@ -104,5 +108,12 @@ public class UserServiceImpl implements UserService {
 
         System.out.println(message);
     }
+
+    public String findUserName(String userId) {
+        String sql = "SELECT user_name FROM user WHERE user_id = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, userId);
+    }
+
+
 
 }

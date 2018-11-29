@@ -4,11 +4,13 @@ import com.ready2die.javaBeans.ApplicationProperties;
 import com.ready2die.javaBeans.Staff;
 import com.ready2die.service.DomainService;
 import com.ready2die.serviceImpl.DomainServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class SpringIntroductionApplication {
 
@@ -50,6 +52,9 @@ public class SpringIntroductionApplication {
         System.out.println("joinedYear = " + joinedYear);
 
         ((UserServiceImpl) userService).printWelcomeMessage();
+
+        ((UserServiceImpl) userService).findUserName("abc");
+
 
         ((AnnotationConfigApplicationContext) context).close();
 
