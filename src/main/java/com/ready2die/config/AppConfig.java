@@ -12,6 +12,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+
 import javax.sql.DataSource;
 
 @Configuration
@@ -24,7 +26,7 @@ import javax.sql.DataSource;
 public class AppConfig {
 
     @Autowired
-    DatasourceEmbeddedConfig datasourceEmbeddedConfig
+    DatasourceEmbeddedConfig datasourceEmbeddedConfig;
 
     @Bean
     @Primary
@@ -66,5 +68,10 @@ public class AppConfig {
     @Bean
     public JdbcTemplate jdbcTemplate() {
         return new JdbcTemplate(datasourceEmbeddedConfig.dataSource());
+    }
+
+    @Bean
+    public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(datasourceEmbeddedConfig.dataSource( ));
     }
 }
