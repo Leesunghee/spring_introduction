@@ -1,10 +1,12 @@
 package com.ready2die.serviceImpl;
 
 import com.ready2die.dao.JdbcRoomDao;
+import com.ready2die.exception.NotFoundRoomIdException;
 import com.ready2die.pojo.Equipment;
 import com.ready2die.pojo.Room;
 import com.ready2die.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +23,12 @@ public class RoomServiceImpl implements RoomService {
     TransactionTemplate transactionTemplate;
 
     @Autowired
-    JdbcRoomDao jdbcRoomDao;
+    JdbcRoomDao roomDao;
 
     @Transactional(readOnly = true)
     @Override
     public Room getRoom(String roomId) {
-        return jdbcRoomDao.getRoomById(roomId);
+        return roomDao.getRoomById(roomId);
     }
 
     @Override
@@ -35,12 +37,22 @@ public class RoomServiceImpl implements RoomService {
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus transactionStatus) {
-                jdbcRoomDao.insertRoom(room);
+                roomDao.insertRoom(room);
                 List<Equipment> equipmentList = room.getEquipmentList();
                 for (Equipment item : equipmentList) {
-                    jdbcRoomDao.insertEquipment(item);
+                    roomDao.insertEquipment(item);
                 }
             }
         });
+    }
+
+    public Room getRoomForUpdate(String roomId) {
+        Room room = null;
+        try {
+            room = roomDao.getRoomForUpdate(roomId);
+        } catch (DataRetrievalFailureException e) {
+            throw new NotFoundRoomIdException("roomId=" + roomId, e);
+        }
+        return room;
     }
 }

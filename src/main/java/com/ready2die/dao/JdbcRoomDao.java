@@ -75,4 +75,8 @@ public class JdbcRoomDao {
 
     public void insertEquipment(Equipment item) {
     }
+
+    public Room getRoomForUpdate(String roomId) {
+        return null;
+    }
 }
