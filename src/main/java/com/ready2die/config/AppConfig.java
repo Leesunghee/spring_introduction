@@ -14,6 +14,9 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
 
@@ -80,4 +83,12 @@ public class AppConfig {
 //    public DataSourceTransactionManager transactionManager() {
 //        return new DataSourceTransactionManager(datasourceEmbeddedConfig.dataSource());
 //    }
+
+    @Bean
+    public TransactionTemplate transactionTemplate(PlatformTransactionManager transactionManager) {
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_COMMITTED);
+        transactionTemplate.setTimeout(30);
+        return transactionTemplate;
+    }
 }
