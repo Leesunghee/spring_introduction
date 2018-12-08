@@ -1,5 +1,6 @@
 package com.ready2die.dao;
 
+import com.ready2die.pojo.Equipment;
 import com.ready2die.pojo.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -69,4 +70,9 @@ public class JdbcRoomDao {
         jdbcTemplate.query(sql, handler);
     }
 
+    public void insertRoom(Room room) {
+    }
+
+    public void insertEquipment(Equipment item) {
+    }
 }

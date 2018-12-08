@@ -13,6 +13,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -74,4 +75,9 @@ public class AppConfig {
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
         return new NamedParameterJdbcTemplate(datasourceEmbeddedConfig.dataSource( ));
     }
+
+//    @Bean
+//    public DataSourceTransactionManager transactionManager() {
+//        return new DataSourceTransactionManager(datasourceEmbeddedConfig.dataSource());
+//    }
 }
